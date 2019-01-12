@@ -10,7 +10,6 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define Paths and Package Sources
-var nugetSource = "https://api.nuget.org/v3/index.json";
 var solutionFiles = GetFiles("./*.sln").ToList();
 var solutionPath = solutionFiles[0].FullPath;
 
@@ -42,11 +41,7 @@ Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-     var settings = new DotNetCoreRestoreSettings
-     {
-         Sources = new[] { nugetSource }
-     };
-    DotNetCoreRestore(solutionPath, settings);
+    DotNetCoreRestore(solutionPath);
 });
 
 Task("Build")
