@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CvService.Repositories.Repositories
 {
-  public class CvRepository
+  public class CvRepository : ICvRepository
   {
     private readonly CvContext _cvContext;
 
