@@ -1,6 +1,6 @@
 ## CV Service
 
-### Build
+### How To Build Locally
 
 1. Open PowerShell Administrator Console
 2. Set PowerShell Execution Policy
