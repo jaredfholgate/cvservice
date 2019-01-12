@@ -262,3 +262,6 @@ __pycache__/
 /CvService.Api/tools/Cake
 /CvService.Api/tools/nuget.exe
 /CvService.Api/tools/packages.config.md5sum
+/tools/Cake
+/tools/nuget.exe
+/tools/packages.config.md5sum

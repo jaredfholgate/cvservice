@@ -1,10 +1,11 @@
-### CV Service
+## CV Service
 
-## Build
+### Build
 
-1 Open PowerShell
-2 Set PowerShell Execution Policy
-	
-3 Run ./Build.ps1
+1. Open PowerShell Administrator Console
+2. Set PowerShell Execution Policy
+<code>Set-ExecutionPolicy Unrestricted</code>
+3. Navigate to Root of Solution
+4. Run <code>./Build.ps1</code>
 
 
