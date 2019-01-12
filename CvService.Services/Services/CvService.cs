@@ -6,9 +6,8 @@ using System.Collections.Generic;
 
 namespace CvService.Services
 {
-  public class CvService
+  public class CvService : ICvService
   {
-
     private readonly ICvRepository _cvRepository;
     private readonly IMapper _mapper;
 
@@ -24,10 +23,12 @@ namespace CvService.Services
       _cvRepository.Add(cvPoco);
     }
 
-    public List<Cv> Get()
+    public List<Cv> Get(string rootUrl)
     {
       var cvs = _cvRepository.Get();
-      return _mapper.Map<List<Repositories.Pocos.Cv>, List<Cv>>(cvs);
+      var mappedCvs = _mapper.Map<List<Repositories.Pocos.Cv>, List<Cv>>(cvs);
+      mappedCvs.ForEach(o => o.Url = $"{rootUrl}/cv/{o.Id}");
+      return mappedCvs;
     }
   }
 }

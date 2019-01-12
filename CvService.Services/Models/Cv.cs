@@ -11,5 +11,7 @@ namespace CvService.Services.Models
     public string Name { get; set; }
 
     public string Blurb { get; set; }
+
+    public string Url { get; set; }
   }
 }

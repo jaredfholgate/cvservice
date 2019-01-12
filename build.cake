@@ -80,6 +80,7 @@ Task("Integration-Tests")
     .IsDependentOn("Unit-Tests")
     .Does(() =>
 {
+
 	var testResultFile = "IntnTestResults.xml";
 	var settings = new DotNetCoreTestSettings
 	{

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using CvService.Repositories.Contexts;
+using CvService.Repositories.Repositories;
+using CvService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,6 +30,13 @@ namespace CvService.Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      services.AddScoped<ICvService, Services.CvService>();
+      services.AddScoped<ICvRepository, CvRepository>();
+      var mapper = new Services.Mapper().GetMapper();
+      services.AddScoped<IMapper>(o => mapper);
+
+      var connection = @"Server=(localdb)\mssqllocaldb;Database=CvService;Trusted_Connection=True;ConnectRetryCount=0";
+      services.AddDbContext<CvContext>(options => options.UseSqlServer(connection));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

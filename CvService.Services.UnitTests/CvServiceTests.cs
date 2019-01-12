@@ -1,5 +1,6 @@
 using CvService.Repositories.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CvService.Services.UnitTests
 {
@@ -17,11 +18,38 @@ namespace CvService.Services.UnitTests
       cvService.Add(cv);
 
       //Assert
-      var cvs = cvService.Get();
+      var cvs = cvService.Get("http://testurl");
       var result = cvs[0];
 
       Assert.AreEqual(cv.Name, result.Name);
       Assert.AreEqual(cv.Blurb, result.Blurb);
+    }
+
+    [TestMethod]
+    public void CheckUrlsAreCorrect()
+    {
+      //Arrange
+      var cvService = new CvService(new CvRepository(GetSqlLiteContext()), new Mapper().GetMapper());
+      var testCvs = new List<Models.Cv>() {
+        new Models.Cv { Name = "Cv1", Blurb = "Test 1" },
+        new Models.Cv { Name = "Cv2", Blurb = "Test 2" },
+        new Models.Cv { Name = "Cv3", Blurb = "Test 3" }
+      };
+
+      //Act
+      foreach (var cv in testCvs)
+      {
+        cvService.Add(cv);
+      }
+
+      //Assert
+      var cvs = cvService.Get("http://testurl");
+      
+      foreach(var cv in cvs)
+      {
+        Assert.AreEqual($"http://testurl/cv/{cv.Id}", cv.Url);
+      }
+      
     }
   }
 }
