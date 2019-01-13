@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CvService.Repositories.Contexts;
 using CvService.Repositories.Repositories;
 using CvService.Services;
@@ -12,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Reflection;
 
 namespace CvService.Api
 {
@@ -40,7 +37,28 @@ namespace CvService.Api
       services.AddScoped<IMapper>(o => mapper);
 
       var connection = Configuration.GetConnectionString("CvContext");
+      var environmentConnectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_defaultConnection");
+      if (!string.IsNullOrWhiteSpace(environmentConnectionString))
+      {
+        connection = environmentConnectionString;
+      }
       services.AddDbContext<CvContext>(options => options.UseSqlServer(connection));
+
+      var sp = services.BuildServiceProvider();
+
+      using (var scope = sp.CreateScope())
+      {
+        var scopedServices = scope.ServiceProvider;
+        var db = scopedServices.GetRequiredService<CvContext>();
+        db.Database.EnsureCreated();
+      }
+
+      var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info { Title = "Cv Service", Version = version });
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +68,13 @@ namespace CvService.Api
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.UseSwagger();
+
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cv Service API");
+      });
 
       app.UseMvc();
     }
