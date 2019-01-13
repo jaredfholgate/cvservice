@@ -7,7 +7,7 @@ namespace CvService.Repositories.Repositories
   {
     Cv Add(Cv cv);
     List<Cv> Get();
-    Cv Get(int id);
+    Cv Get(int id, bool includeChildren = false);
     void Update(Cv cv);
     void Delete(int id);
   }

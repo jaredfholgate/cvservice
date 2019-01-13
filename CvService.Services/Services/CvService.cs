@@ -42,6 +42,14 @@ namespace CvService.Services
       return mappedCv;
     }
 
+    public FullCv Get(int id, string rootUrl, bool includeChildren)
+    {
+      var cv = _cvRepository.Get(id, includeChildren);
+      var mappedCv = _mapper.Map<FullCv>(cv);
+      MapCvUrls(mappedCv, rootUrl);
+      return mappedCv;
+    }
+
     public void Delete(int id)
     {
       _cvRepository.Delete(id);

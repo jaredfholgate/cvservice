@@ -29,8 +29,12 @@ namespace CvService.Repositories.Repositories
       return _cvContext.Cvs.ToList();
     }
 
-    public Cv Get(int id)
+    public Cv Get(int id, bool includeChildren = false)
     {
+      if(includeChildren)
+      {
+        return _cvContext.Cvs.Include(c => c.Companies).Include(c => c.Skills).Single(o => o.Id == id);
+      }
       return _cvContext.Cvs.Single(o => o.Id == id);
     }
 

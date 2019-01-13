@@ -31,6 +31,12 @@ namespace CvService.Api.Controllers
       return _cvService.Get(id, RootUrl);
     }
 
+    [HttpGet("{id}/full")]
+    public ActionResult<FullCv> GetFull(int id)
+    {
+      return _cvService.Get(id, RootUrl, true);
+    }
+       
     [HttpPost]
     public ActionResult<Cv> Post([FromBody] Cv cv)
     {
