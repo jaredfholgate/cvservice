@@ -7,5 +7,8 @@ namespace CvService.Repositories.Repositories
   {
     void Add(Cv cv);
     List<Cv> Get();
+    Cv Get(int id);
+    void Update(Cv cv);
+    void Delete(int id);
   }
 }

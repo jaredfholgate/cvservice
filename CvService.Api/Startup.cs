@@ -32,10 +32,12 @@ namespace CvService.Api
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
       services.AddScoped<ICvService, Services.CvService>();
       services.AddScoped<ICvRepository, CvRepository>();
+      services.AddScoped<ICompanyRepository, CompanyRepository>();
+      services.AddScoped<ISkillRepository, SkillRepository>();
       var mapper = new Services.Mapper().GetMapper();
       services.AddScoped<IMapper>(o => mapper);
 
-      var connection = @"Server=(localdb)\mssqllocaldb;Database=CvService;Trusted_Connection=True;ConnectRetryCount=0";
+      var connection = Configuration.GetConnectionString("CvContext");
       services.AddDbContext<CvContext>(options => options.UseSqlServer(connection));
     }
 
