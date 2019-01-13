@@ -27,7 +27,7 @@ namespace CvService.Repositories.Repositories
 
     public List<Company> GetForCv(int cvId)
     {
-      return _cvContext.Companies.Where(o => o.Cv.Id == cvId).ToList();
+      return _cvContext.Companies.Where(o => o.Cv.Id == cvId).OrderByDescending(o => o.Start).ToList();
     }
 
     public Company Get(int id)

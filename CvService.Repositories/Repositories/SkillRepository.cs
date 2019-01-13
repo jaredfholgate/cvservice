@@ -27,7 +27,7 @@ namespace CvService.Repositories.Repositories
 
     public List<Skill> GetForCv(int cvId)
     {
-      return _cvContext.Skills.Where(o => o.Cv.Id == cvId).ToList();
+      return _cvContext.Skills.Where(o => o.Cv.Id == cvId).OrderBy(o => o.Order).ToList();
     }
 
     public Skill Get(int id)

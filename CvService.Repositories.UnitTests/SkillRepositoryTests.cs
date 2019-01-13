@@ -87,5 +87,38 @@ namespace CvService.Repositories.UnitTests
       //Assert
       Assert.AreEqual(0, skillRepository.GetForCv(cvId).Count);
     }
+
+    [TestMethod]
+    public void MultipleSkillsAreReturnedInOrder()
+    {
+      //Arrange
+      var context = GetSqlLiteContext();
+      var cvRepository = new CvRepository(context);
+      var skillRepository = new SkillRepository(context);
+
+      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
+      cvRepository.Add(cv);
+      var cvId = cvRepository.Get()[0].Id;
+
+      //Act
+      var skill1 = new Skill() { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 5 };
+      skillRepository.AddToCv(skill1, cvId);
+      var skill2 = new Skill() { Name = "DevOps", Blurb = "DevOps Master", Order = 3 };
+      skillRepository.AddToCv(skill2, cvId);
+      var skill3 = new Skill() { Name = "Agile", Blurb = "Agile Expert", Order = 1 };
+      skillRepository.AddToCv(skill3, cvId);
+      var skill4 = new Skill() { Name = "Software Engineering", Blurb = "Since 2001", Order = 2 };
+      skillRepository.AddToCv(skill4, cvId);
+
+      //Assert
+      var results = skillRepository.GetForCv(cvId);
+
+      var order = 0;
+      foreach(var result in results)
+      {
+        Assert.IsTrue(result.Order > order);
+        order = result.Order;
+      }
+    }
   }
 }

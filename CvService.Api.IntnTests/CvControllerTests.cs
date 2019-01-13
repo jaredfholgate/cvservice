@@ -26,7 +26,7 @@ namespace CvService.Api.IntnTests
       var getResponse = client.GetAsync("/cv").Result;
       var result = getResponse.Content.ReadAsStringAsync().Result;
 
-      Assert.IsTrue(result.Contains("\"name\":\"Test CV 1\",\"blurb\":\"Testing 1234567\""));
+      Assert.AreEqual("[{\"id\":1,\"name\":\"Test CV 1\",\"tagLine\":null,\"blurb\":\"Testing 1234567\",\"url\":\"http://localhost/cv/1\"}]", result);
     }
   }
 }
