@@ -31,6 +31,8 @@ namespace CvService.Api
     {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
       services.AddScoped<ICvService, Services.CvService>();
+      services.AddScoped<ICompanyService, CompanyService>();
+      services.AddScoped<ISkillService, SkillService>();
       services.AddScoped<ICvRepository, CvRepository>();
       services.AddScoped<ICompanyRepository, CompanyRepository>();
       services.AddScoped<ISkillRepository, SkillRepository>();

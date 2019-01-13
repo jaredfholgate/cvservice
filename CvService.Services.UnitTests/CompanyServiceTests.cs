@@ -55,6 +55,7 @@ namespace CvService.Services.UnitTests
       var company = new Company() { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds" };
       var newCompany = companyService.AddToCv(company, cvId, RootUrl);
       var companyId = newCompany.Id;
+
       //Act
       var companyUpdate = new Company() { Id = companyId, Start = DateTime.Parse("2000-08-02"), End = DateTime.Parse("2002-05-02"), CompanyName = "Carlsberg US", Role = "Quality Assurance Monkey", Location = "Montreal" };
       companyService.Update(companyUpdate);

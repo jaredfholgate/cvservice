@@ -19,21 +19,20 @@ namespace CvService.Repositories.Repositories
 
     public Skill AddToCv(Skill skill, int cvId)
     {
-      var cv = _cvContext.Cvs.Single(o => o.Id == cvId);
-      skill.Cv = cv;
-      _cvContext.Skills.Add(skill);
+      var cv = _cvContext.Cvs.Include(c => c.Skills).Single(o => o.Id == cvId);
+      cv.Skills.Add(skill);
       _cvContext.SaveChanges();
       return skill;
     }
 
     public List<Skill> GetForCv(int cvId)
     {
-      return _cvContext.Skills.Where(o => o.Cv.Id == cvId).OrderBy(o => o.Order).ToList();
+      return _cvContext.Skills.Include(s => s.Cv).Where(o => o.Cv.Id == cvId).OrderBy(o => o.Order).ToList();
     }
 
     public Skill Get(int id)
     {
-      return _cvContext.Skills.Single(o => o.Id == id);
+      return _cvContext.Skills.Include(s => s.Cv).Single(o => o.Id == id);
     }
 
     public void Update(Skill skill)
