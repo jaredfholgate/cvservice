@@ -10,7 +10,7 @@ namespace CvService.Api.Controllers
 {
   [Route("[controller]")]
   [ApiController]
-  public class CvController : ControllerBase
+  public class CvController : BaseController
   {
     private readonly ICvService _cvService;
 
@@ -22,29 +22,33 @@ namespace CvService.Api.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Cv>> Get()
     {
-      return _cvService.Get($"{Request.Scheme}://{Request.Host.Value}");
+      return _cvService.Get(RootUrl);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<Cv> Get(int id)
     {
-      return "value";
+      return _cvService.Get(id, RootUrl);
     }
 
     [HttpPost]
-    public void Post([FromBody] Cv value)
+    public ActionResult<Cv> Post([FromBody] Cv cv)
     {
-      _cvService.Add(value);
+      var newCv = _cvService.Add(cv, RootUrl);
+      return newCv;
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] Cv value)
+    public void Put(int id, [FromBody] Cv cv)
     {
+      cv.Id = id;
+      _cvService.Update(cv);
     }
 
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
+      _cvService.Delete(id);
     }
   }
 }

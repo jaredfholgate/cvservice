@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvService.Repositories.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20190113154118_InitialCreate")]
+    [Migration("20190113170410_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,8 @@ namespace CvService.Repositories.Migrations
                     b.Property<int?>("CvId");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("Order");
 
                     b.HasKey("Id");
 

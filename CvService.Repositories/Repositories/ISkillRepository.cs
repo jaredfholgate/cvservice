@@ -5,7 +5,7 @@ namespace CvService.Repositories.Repositories
 {
   public interface ISkillRepository
   {
-    void AddToCv(Skill skill, int cvId);
+    Skill AddToCv(Skill skill, int cvId);
     void Delete(int id);
     Skill Get(int id);
     List<Skill> GetForCv(int cvId);

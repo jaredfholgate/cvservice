@@ -56,6 +56,7 @@ namespace CvService.Repositories.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Blurb = table.Column<string>(nullable: true),
+                    Order = table.Column<int>(nullable: false),
                     CvId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

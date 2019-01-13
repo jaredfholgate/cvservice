@@ -17,10 +17,11 @@ namespace CvService.Repositories.Repositories
       _cvContext = cvContext;
     }
 
-    public void Add(Cv cv)
+    public Cv Add(Cv cv)
     {
       _cvContext.Cvs.Add(cv);
       _cvContext.SaveChanges();
+      return cv;
     }
 
     public List<Cv> Get()

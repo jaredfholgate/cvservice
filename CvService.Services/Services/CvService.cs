@@ -17,18 +17,57 @@ namespace CvService.Services
       _mapper = mapper;
     }
 
-    public void Add(Cv cv)
+    public Cv Add(Cv cv, string rootUrl)
     {
       var cvPoco = _mapper.Map<Repositories.Pocos.Cv>(cv);
-      _cvRepository.Add(cvPoco);
+      var newCv =_cvRepository.Add(cvPoco);
+      var mappedCv = _mapper.Map<Cv>(newCv);
+      MapCvUrls(mappedCv, rootUrl);
+      return mappedCv;
     }
 
     public List<Cv> Get(string rootUrl)
     {
       var cvs = _cvRepository.Get();
       var mappedCvs = _mapper.Map<List<Repositories.Pocos.Cv>, List<Cv>>(cvs);
-      mappedCvs.ForEach(o => o.Url = $"{rootUrl}/cv/{o.Id}");
+      mappedCvs.ForEach(o => MapCvUrls(o, rootUrl));
       return mappedCvs;
+    }
+
+    public Cv Get(int id, string rootUrl)
+    {
+      var cv = _cvRepository.Get(id);
+      var mappedCv = _mapper.Map<Cv>(cv);
+      MapCvUrls(mappedCv, rootUrl);
+      return mappedCv;
+    }
+
+    public void Delete(int id)
+    {
+      _cvRepository.Delete(id);
+    }
+
+    public void Update(Cv cv)
+    {
+      if (cv.Id == 0)
+      {
+        throw new Exception("The CV must have an Id.");
+      }
+      var mappedCV = _mapper.Map<Repositories.Pocos.Cv>(cv);
+      _cvRepository.Update(mappedCV);
+    }
+
+    private void MapCvUrls(Cv cv, string rootUrl)
+    {
+      var (CvUrl, CompaniesUrl, SkillsUrl) = GetCvUrls(cv.Id, rootUrl);
+      cv.Url = CvUrl;
+      cv.CompaniesUrl = CompaniesUrl;
+      cv.SkillsUrl = SkillsUrl;
+    }
+
+    private (string CvUrl,  string CompaniesUrl, string SkillsUrl ) GetCvUrls(int id, string rootUrl)
+    {
+      return (CvUrl: $"{rootUrl}/cv/{id}", CompaniesUrl: $"{rootUrl}/cv/{id}/companies", SkillsUrl: $"{rootUrl}/cv/{id}/skills");
     }
   }
 }

@@ -75,6 +75,8 @@ namespace CvService.Repositories.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("Order");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CvId");

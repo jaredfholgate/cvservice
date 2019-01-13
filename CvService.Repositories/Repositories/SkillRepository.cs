@@ -17,12 +17,13 @@ namespace CvService.Repositories.Repositories
       _cvContext = cvContext;
     }
 
-    public void AddToCv(Skill skill, int cvId)
+    public Skill AddToCv(Skill skill, int cvId)
     {
       var cv = _cvContext.Cvs.Single(o => o.Id == cvId);
       skill.Cv = cv;
       _cvContext.Skills.Add(skill);
       _cvContext.SaveChanges();
+      return skill;
     }
 
     public List<Skill> GetForCv(int cvId)
@@ -40,6 +41,7 @@ namespace CvService.Repositories.Repositories
       var attachedSkill = _cvContext.Skills.Single(o => o.Id == skill.Id);
       attachedSkill.Name = skill.Name;
       attachedSkill.Blurb = skill.Blurb;
+      attachedSkill.Order = skill.Order;
       _cvContext.SaveChanges();
     }
 

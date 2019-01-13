@@ -5,7 +5,7 @@ namespace CvService.Repositories.Repositories
 {
   public interface ICvRepository
   {
-    void Add(Cv cv);
+    Cv Add(Cv cv);
     List<Cv> Get();
     Cv Get(int id);
     void Update(Cv cv);

@@ -4,14 +4,14 @@ using System.Text;
 
 namespace CvService.Services.Models
 {
-  public class Cv
+  public class Skill
   {
     public int Id { get; set; }
     public string Name { get; set; }
-    public string TagLine { get; set; }
     public string Blurb { get; set; }
+    public int Order { get; set; }
+    public int CvId { get; set; }
     public string Url { get; set; }
-    public string CompaniesUrl { get; set; }
-    public string SkillsUrl { get; set; }
+    public string CvUrl { get; set; }
   }
 }

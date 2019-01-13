@@ -17,12 +17,13 @@ namespace CvService.Repositories.Repositories
       _cvContext = cvContext;
     }
 
-    public void AddToCv(Company company, int cvId)
+    public Company AddToCv(Company company, int cvId)
     {
       var cv = _cvContext.Cvs.Single(o => o.Id == cvId);
       company.Cv = cv;
       _cvContext.Companies.Add(company);
       _cvContext.SaveChanges();
+      return company;
     }
 
     public List<Company> GetForCv(int cvId)
