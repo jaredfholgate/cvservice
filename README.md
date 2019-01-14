@@ -121,3 +121,5 @@ The following items would be worked on if I had more time;
 8. Dependency injection, I would consider another container.
 9. Look to improve the performance of the CI build, specifically the Cake step.
 10. More refactoring and tidying up of tests and code. 
+11. A nice user interface.
+12. Extending features to add qualifications, contact details and other ad hoc sections to the CV (such as Interests).
