@@ -66,7 +66,7 @@ namespace CvService.Services
 
     private static (string CvUrl,  string SkillUrl ) GetSkillUrls(int id, int cvId, string rootUrl)
     {
-      return (CvUrl: $"{rootUrl}/cv/{cvId}", SkillUrl: $"{rootUrl}/cv/{cvId}/skills/{id}");
+      return (CvUrl: $"{rootUrl}/cv/{cvId}", SkillUrl: $"{rootUrl}/skill/{id}");
     }
   }
 }
