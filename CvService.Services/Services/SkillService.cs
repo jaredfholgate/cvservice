@@ -57,14 +57,14 @@ namespace CvService.Services
       _skillRepository.Update(mappedSkill);
     }
 
-    private void MapSkillUrls(Skill skill, int cvId, string rootUrl)
+    public static void MapSkillUrls(Skill skill, int cvId, string rootUrl)
     {
       var (CvUrl, SkillUrl) = GetSkillUrls(skill.Id, cvId, rootUrl);
       skill.CvUrl = CvUrl;
       skill.Url = SkillUrl;
     }
 
-    private (string CvUrl,  string SkillUrl ) GetSkillUrls(int id, int cvId, string rootUrl)
+    private static (string CvUrl,  string SkillUrl ) GetSkillUrls(int id, int cvId, string rootUrl)
     {
       return (CvUrl: $"{rootUrl}/cv/{cvId}", SkillUrl: $"{rootUrl}/cv/{cvId}/skills/{id}");
     }

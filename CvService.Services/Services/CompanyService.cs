@@ -57,14 +57,14 @@ namespace CvService.Services
       _companyRepository.Update(mappedCV);
     }
 
-    private void MapCompanyUrls(Company company, int cvId, string rootUrl)
+    public static void MapCompanyUrls(Company company, int cvId, string rootUrl)
     {
       var (CvUrl, CompanyUrl) = GetCompanyUrls(company.Id, cvId, rootUrl);
       company.CvUrl = CvUrl;
       company.Url = CompanyUrl;
     }
 
-    private (string CvUrl,  string CompanyUrl ) GetCompanyUrls(int id, int cvId, string rootUrl)
+    private static (string CvUrl,  string CompanyUrl ) GetCompanyUrls(int id, int cvId, string rootUrl)
     {
       return (CvUrl: $"{rootUrl}/cv/{cvId}", CompanyUrl: $"{rootUrl}/cv/{cvId}/companies/{id}");
     }

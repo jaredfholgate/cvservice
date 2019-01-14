@@ -47,6 +47,15 @@ namespace CvService.Services
       var cv = _cvRepository.Get(id, includeChildren);
       var mappedCv = _mapper.Map<FullCv>(cv);
       MapCvUrls(mappedCv, rootUrl);
+
+      foreach(var company in mappedCv.Companies)
+      {
+        CompanyService.MapCompanyUrls(company, id, rootUrl);
+      }
+      foreach (var skill in mappedCv.Skills)
+      {
+        SkillService.MapSkillUrls(skill, id, rootUrl);
+      }
       return mappedCv;
     }
 
