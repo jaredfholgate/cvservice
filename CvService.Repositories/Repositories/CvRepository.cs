@@ -33,7 +33,9 @@ namespace CvService.Repositories.Repositories
     {
       if(includeChildren)
       {
-        return _cvContext.Cvs.Include(c => c.Companies).Include(c => c.Skills).Single(o => o.Id == id);
+        var cv = _cvContext.Cvs.Include(c => c.Companies).Include(c => c.Skills).Single(o => o.Id == id);
+        cv.Companies = cv.Companies.OrderByDescending(o => o.Start).ToList();
+        cv.Skills = cv.Skills.OrderBy(o => o.Order).ToList();
       }
       return _cvContext.Cvs.Single(o => o.Id == id);
     }

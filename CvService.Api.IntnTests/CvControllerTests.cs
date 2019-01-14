@@ -154,9 +154,26 @@ namespace CvService.Api.IntnTests
       Assert.AreEqual(CvBlurb, result.blurb.ToString());
       Assert.AreEqual(9, result.companies.Count);
       Assert.AreEqual(17, result.skills.Count);
-    }
 
-   
+      var date = DateTime.Parse("3000-01-01");
+      foreach (var company in result.companies)
+      {
+        Assert.IsTrue((DateTime)company.start < date);
+        date = (DateTime)company.start;
+        Assert.IsNotNull(company.cvUrl);
+        Assert.IsNotNull(company.url);
+      }
+
+      var order = 0;
+      foreach (var skill in result.skills)
+      {
+        Assert.IsTrue((int)skill.order > order);
+        order = (int)skill.order;
+        Assert.IsNotNull(skill.cvUrl);
+        Assert.IsNotNull(skill.url);
+      }
+    }
+       
     //[TestMethod] //This method is used as a one off to populate some example data.
     public void GenerateData()
     {
