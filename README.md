@@ -4,6 +4,10 @@
 
 This service is built using ASP.NET Core MVC. It uses SQL Server for persistence.
 
+Go here to take a look or read further for more details;
+
+https://cvserviceprod.azurewebsites.net/swagger
+
 ### Pre-requisites
 
 The solution was build with the following tools;
