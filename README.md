@@ -75,7 +75,7 @@ The CD pipeline is triggered on a successful CI build, it has two stages;
 1. Test
 2. Production
 
-The steps of each stage are very simple, it just deploys to Azure App Services.
+The step of each stage is very simple, it just deploys to Azure App Service.
 
 ### Hosting
 
@@ -83,7 +83,7 @@ The app is hosted in Azure as an Azure App Service. The database is hosted by Az
 
 I chose Azure App Service due to time constraints, it is very easy to configure and get up and running.
 
-The appllication gets it's connection string from Environment variables provided by the app service.
+The appllication gets it's connection string from Environment variables provided by the App Aervice.
 
 The App Service urls are;
 
@@ -101,9 +101,9 @@ For the two Azure instances, this is;
 
 ### Testing
 
-The API is fully testing as part of the CI build, you will see tests at the repository, service and web api level.
+The API is fully tested as part of the CI build, you will see tests at the repository, service and web api level.
 
-The tests us SQLLite in memory database, so that they don't require a full version of SQL to run. This also avoids the need to mock the database layer.
+The tests use the SQLLite in memory database, so that they don't require a full version of SQL to run. This also avoids the need to mock the database layer.
 
 The integration tests self host the API and inject SQLLite to ensure that the tests will run quickly and in any environment.
 
@@ -111,15 +111,16 @@ The integration tests self host the API and inject SQLLite to ensure that the te
 
 The following items would be worked on if I had more time;
 
-1. Security. The app is currently unsecured, I would add OAuth authentication of use an API Gateway to secure it.
+1. Security. The app is currently unsecured, I would add OAuth authentication or use an API Gateway to secure it.
 2. Performance and Load Testing.
 3. Automated Acceptance testing at the Test stage if the CD pipeline.
 4. Application Performance and Availability Monitoring. Azure Application Insights is configured and ready to go, but I haven't plugged it in at the code level yet.
 5. Custom Url and SSL Cert for Production.
 6. Hosting environment. I chose Azure App Service for simplicty, but I may want to containerise and use orchestration for the API if it becomes part of a bigger solution.
 7. Persistence layer. I chose SQL Server for simplicity, but I would consider using a NoSQL database, such as CosmosDB deoending on the predicted load and global reach of the API.
-8. Dependency injection, I would consider another container.
+8. Dependency injection, I would consider another container that has more features, such as reflection.
 9. Look to improve the performance of the CI build, specifically the Cake step.
 10. More refactoring and tidying up of tests and code. 
 11. A nice user interface.
 12. Extending features to add qualifications, contact details and other ad hoc sections to the CV (such as Interests).
+13. More testing for edge case and exceptions.
