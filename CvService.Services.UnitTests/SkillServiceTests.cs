@@ -93,7 +93,7 @@ namespace CvService.Services.UnitTests
       foreach(var skill in skills)
       {
         Assert.AreEqual($"{RootUrl}/cv/{skill.CvId}", skill.CvUrl);
-        Assert.AreEqual($"{RootUrl}/cv/{skill.CvId}/skills/{skill.Id}", skill.Url);
+        Assert.AreEqual($"{RootUrl}/skill/{skill.Id}", skill.Url);
       }
     }
   }

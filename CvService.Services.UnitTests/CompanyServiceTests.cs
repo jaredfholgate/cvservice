@@ -121,7 +121,7 @@ namespace CvService.Services.UnitTests
       foreach(var company in companies)
       {
         Assert.AreEqual($"{RootUrl}/cv/{company.CvId}", company.CvUrl);
-        Assert.AreEqual($"{RootUrl}/cv/{company.CvId}/companies/{company.Id}", company.Url);
+        Assert.AreEqual($"{RootUrl}/company/{company.Id}", company.Url);
       }
     }
   }
