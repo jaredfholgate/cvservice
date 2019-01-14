@@ -117,7 +117,7 @@ The following items would be worked on if I had more time;
 4. Application Performance and Availability Monitoring. Azure Application Insights is configured and ready to go, but I haven't plugged it in at the code level yet.
 5. Custom Url and SSL Cert for Production.
 6. Hosting environment. I chose Azure App Service for simplicty, but I may want to containerise and use orchestration for the API if it becomes part of a bigger solution.
-7. Persistence layer. I chose SQL Server for simplicity, but I would consider using a NoSQL database, such as CosmosDB deoending on the predicted load and global reach of the API.
+7. Persistence layer. I chose SQL Server for simplicity, but I would consider using a NoSQL database, such as CosmosDB depending on the predicted load and global reach of the API.
 8. Dependency injection, I would consider another container that has more features, such as reflection.
 9. Look to improve the performance of the CI build, specifically the Cake step.
 10. More refactoring and tidying up of tests and code. 
