@@ -2,7 +2,7 @@
 
 [![Build status](https://jaredfholgate.visualstudio.com/CvService/_apis/build/status/CvService)](https://jaredfholgate.visualstudio.com/CvService/_build/latest?definitionId=4)
 
-This service is built using ASP.NET Core MVC. It uses SQL Server for persistence.
+This service is built using ASP.NET Core. It uses SQL Server for persistence.
 
 Go here to take a look at the API documentation;
 
@@ -15,7 +15,7 @@ https://cvserviceprod.azurewebsites.net/cv/1/full
 
 ### Pre-requisites
 
-The solution was build with the following tools;
+The solution was built with the following tools;
 
 1. Visual Studio Enterpise 2017 15.9.5
 2. .Net Core SDK 2.2.102
