@@ -129,3 +129,5 @@ The following items would be worked on if I had more time;
 16. Write a client in C# or another language to make calling the API as easy as possible.
 17. Convert the Azure DevOps Build definition to YAML and store in source control.
 18. Add users and roles.
+19. Enable updating / adding of multiple items in one put / post / delete.
+20. Improve the swagger documentation by customising it.
