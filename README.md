@@ -128,3 +128,4 @@ The following items would be worked on if I had more time;
 15. Wrapping requests and results in a standard object to report success or failure.
 16. Write a client in C# or another language to make calling the API as easy as possible.
 17. Convert the Azure DevOps Build definition to YAML and store in source control.
+18. Add users and roles.
