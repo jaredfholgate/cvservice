@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CvService.Api.Controllers
 {
-  [Route("[controller]")]
+  [Route("cv")]
   [ApiController]
   public class CvController : BaseController
   {
