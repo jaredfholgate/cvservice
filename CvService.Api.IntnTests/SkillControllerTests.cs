@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 
@@ -31,11 +32,12 @@ namespace CvService.Api.IntnTests
 
       //Act
       var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      var newCompany = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
+      postResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.Created, postResponse.StatusCode);
       var getResponse = client.GetAsync($"/cv/{cvId}/skills").Result;
-      var getResult = getResponse.Content.ReadAsStringAsync().Result;
+      Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
       dynamic skills = JArray.Parse(getResponse.Content.ReadAsStringAsync().Result);
       var result = skills[0];
 
@@ -64,7 +66,9 @@ namespace CvService.Api.IntnTests
       var putResponse = client.PutAsync($"/skill/{skillId}", new StringContent(JsonConvert.SerializeObject(skillUpdate), Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
       var getResponse = client.GetAsync($"/skill/{skillId}").Result;
+      Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
       dynamic result = JObject.Parse(getResponse.Content.ReadAsStringAsync().Result);
 
       Assert.AreEqual(skillUpdate.Name, (string)result.name);
@@ -88,9 +92,10 @@ namespace CvService.Api.IntnTests
       var skillId = newSkill.id;
 
       //Act
-      var putResponse = client.DeleteAsync($"/skill/{skillId}").Result;
+      var deleteResponse = client.DeleteAsync($"/skill/{skillId}").Result;
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.NoContent, deleteResponse.StatusCode);
       var getResponse = client.GetAsync($"/cv/{cvId}/skills").Result;
       var result = getResponse.Content.ReadAsStringAsync().Result;
       Assert.AreEqual("[]", result);

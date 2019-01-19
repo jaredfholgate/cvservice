@@ -18,6 +18,7 @@ namespace CvService.Services
         cfg.CreateMap<Models.CompanyData, Repositories.Pocos.Company>();
         cfg.CreateMap<Repositories.Pocos.Company, Models.Company>().ForMember(o => o.CvId, o => o.MapFrom(oo => oo.Cv.Id));
         cfg.CreateMap<Models.Skill, Repositories.Pocos.Skill>();
+        cfg.CreateMap<Models.SkillData, Repositories.Pocos.Skill>();
         cfg.CreateMap<Repositories.Pocos.Skill, Models.Skill>().ForMember(o => o.CvId, o => o.MapFrom(oo => oo.Cv.Id));
       });
 

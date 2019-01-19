@@ -17,7 +17,7 @@ namespace CvService.Services
       _mapper = mapper;
     }
 
-    public Skill AddToCv(Skill skill, int cvId, string rootUrl)
+    public Skill AddToCv(SkillData skill, int cvId, string rootUrl)
     {
       var skillPoco = _mapper.Map<Repositories.Pocos.Skill>(skill);
       var newSkill =_skillRepository.AddToCv(skillPoco, cvId);
@@ -47,13 +47,10 @@ namespace CvService.Services
       _skillRepository.Delete(id);
     }
 
-    public void Update(Skill skill)
+    public void Update(int Id, SkillData skill)
     {
-      if (skill.Id == 0)
-      {
-        throw new Exception("The Skill must have an Id");
-      }
       var mappedSkill = _mapper.Map<Repositories.Pocos.Skill>(skill);
+      mappedSkill.Id = Id;
       _skillRepository.Update(mappedSkill);
     }
 

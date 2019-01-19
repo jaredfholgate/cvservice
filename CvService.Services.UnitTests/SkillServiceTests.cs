@@ -51,8 +51,8 @@ namespace CvService.Services.UnitTests
       var skillId = newSkill.Id;
 
       //Act
-      var skillUpdate = new Skill() { Id = skillId, Name = "C#", Blurb = "Been using it since 2001.", Order = 24 };
-      skillService.Update(skillUpdate);
+      var skillUpdate = new Skill() {  Name = "C#", Blurb = "Been using it since 2001.", Order = 24 };
+      skillService.Update(skillId, skillUpdate);
 
       //Assert
       var result = skillService.Get(skillId, Constants.RootUrl);
