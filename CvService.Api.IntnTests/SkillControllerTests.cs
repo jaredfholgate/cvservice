@@ -11,7 +11,7 @@ using System.Text;
 namespace CvService.Api.IntnTests
 {
   [TestClass]
-  public class SkillControllerTests
+  public class SkillControllerTests : BaseTest
   {
     private readonly CustomWebApplicationFactory<Startup> _factory;
 
@@ -25,14 +25,11 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name = Constants.CvName, Blurb = Constants.CvBlurb };
-      var postResponse  = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Constants.Encoding, Constants.MediaType)).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
 
       //Act
       var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      postResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
+      var postResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
       Assert.AreEqual(HttpStatusCode.Created, postResponse.StatusCode);
@@ -52,10 +49,7 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name =Constants.CvName, Blurb = Constants.CvBlurb };
-      var postResponse = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Constants.Encoding, Constants.MediaType)).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
       var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
       var postSkillResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
       dynamic newSkill = JObject.Parse(postSkillResponse.Content.ReadAsStringAsync().Result);
@@ -82,10 +76,7 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
-      var postResponse = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Constants.Encoding, Constants.MediaType)).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
       var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
       var postSkillResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
       dynamic newSkill = JObject.Parse(postSkillResponse.Content.ReadAsStringAsync().Result);

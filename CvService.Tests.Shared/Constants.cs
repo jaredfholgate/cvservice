@@ -17,7 +17,5 @@ namespace CvService.Tests.Shared
 
     public const string MediaType = "application/json";
     public static Encoding Encoding = Encoding.UTF8;
-
-
   }
 }

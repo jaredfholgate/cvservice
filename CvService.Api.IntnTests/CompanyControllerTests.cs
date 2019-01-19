@@ -1,3 +1,4 @@
+using CvService.Tests.Shared;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -10,12 +11,8 @@ using System.Text;
 namespace CvService.Api.IntnTests
 {
   [TestClass]
-  public class CompanyControllerTests
+  public class CompanyControllerTests : BaseTest
   {
-    private const string CvName = "Jared Holgate";
-    private const string CvTagLine = "DevOps and Software Engineer";
-    private const string CvBlurb = "Passionate DevOps and Software Engineer with 15+ years of experience, looking to deliver scalable, valuable, high quality products. Skilled in Software Engineering, Continuous Integration, Continuous Delivery, Agile and DevOps. At Maples acted as Architect and Lead Engineers for 6 teams. Implemented best practices, such as TDD, CI and CD. Mentored and trained the teams on SOLID and Design Patterns. Introduced technologies such as Elastic Search, RabbitMQ, Angular, React, Azure and .NET Core. Matured the CD pipeline with automated environment provisioning, database provisioning, SAST, DAST, SonarQube static analysis, release notes etc.";
-
     private readonly CustomWebApplicationFactory<Startup> _factory;
 
     public CompanyControllerTests()
@@ -28,14 +25,11 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name = "Test CV 1", Blurb = "Testing 1234567" };
-      var postResponse  = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Encoding.UTF8, "application/json")).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
 
       //Act
       var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
-      postResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
+      var postResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
 
       //Assert
       Assert.AreEqual(HttpStatusCode.Created, postResponse.StatusCode);
@@ -58,10 +52,7 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name = "Test CV 1", Blurb = "Testing 1234567" };
-      var postResponse = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Encoding.UTF8, "application/json")).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
       var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
       var postCompanyResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
       dynamic newCompany = JObject.Parse(postCompanyResponse.Content.ReadAsStringAsync().Result);
@@ -91,10 +82,7 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      var cv = new { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
-      var postResponse = client.PostAsync("/cv", new StringContent(JsonConvert.SerializeObject(cv), Encoding.UTF8, "application/json")).Result;
-      dynamic postResult = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
-      var cvId = postResult.id;
+      int cvId = CreateCvAndGetId(client);
       var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
       var postCompanyResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
       dynamic newCompany = JObject.Parse(postCompanyResponse.Content.ReadAsStringAsync().Result);
