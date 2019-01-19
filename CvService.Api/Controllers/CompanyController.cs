@@ -21,7 +21,7 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Gets all the Companies for a specific Cv.
+    /// Gets all the companies for a specific CV.
     /// </summary>
     /// <param name="cvId">The Id of the CV to get the companies for.</param>
     /// <response code="200">Successfully got the companies.</response>
@@ -55,7 +55,7 @@ namespace CvService.Api.Controllers
     /// </summary>
     /// <param name="cvId">The Id of the CV to add the company to.</param>
     /// <param name="company">The company details.</param>
-    /// <response code="201">Successfully Added the Company to the CV and returns the new Company.</response>
+    /// <response code="201">Successfully Added the company to the CV and returns the new company with it's Id.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>The company that was added with it's Id.</returns>
     [HttpPost("cv/{cvId}/companies")]
@@ -67,10 +67,10 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Updates a specific Company.
+    /// Updates a specific company.
     /// </summary>
-    /// <param name="id">The Id of the Company to update.</param>
-    /// <param name="company">The Company data to be updated.</param>
+    /// <param name="id">The Id of the company to update.</param>
+    /// <param name="company">The company data to be updated.</param>
     /// <response code="200">Successful Update.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>
@@ -84,9 +84,9 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Deletes a specific Company.
+    /// Deletes a specific company.
     /// </summary>
-    /// <param name="id">The Id of the Company to delete.</param>
+    /// <param name="id">The Id of the company to delete.</param>
     /// <response code="204">Successful Deletion.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>

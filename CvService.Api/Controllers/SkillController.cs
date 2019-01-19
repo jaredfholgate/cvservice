@@ -2,10 +2,7 @@
 using CvService.Services.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CvService.Api.Controllers
 {
@@ -20,7 +17,7 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Gets all the Skills for a specific Cv.
+    /// Gets all the skills for a specific CV.
     /// </summary>
     /// <param name="cvId">The Id of the CV to get the skills for.</param>
     /// <response code="200">Successfully got the skills.</response>
@@ -35,7 +32,7 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Get a skil by it's id.
+    /// Get a skill by it's id.
     /// </summary>
     /// <param name="id">The Id of the skill to get.</param>
     /// <response code="200">Successfully got the skill.</response>
@@ -54,7 +51,7 @@ namespace CvService.Api.Controllers
     /// </summary>
     /// <param name="cvId">The Id of the CV to add the skill to.</param>
     /// <param name="skill">The skill details.</param>
-    /// <response code="201">Successfully Added the Skill to the CV and returns the new Skill.</response>
+    /// <response code="201">Successfully Added the skill to the CV and returns the new skill with it's Id.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>The skill that was added with it's Id.</returns>
     [HttpPost("cv/{cvId}/skills")]
@@ -66,10 +63,10 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Updates a specific Skill.
+    /// Updates a specific skill.
     /// </summary>
-    /// <param name="id">The Id of the Skill to update.</param>
-    /// <param name="skill">The Skill data to be updated.</param>
+    /// <param name="id">The Id of the skill to update.</param>
+    /// <param name="skill">The skill data to be updated.</param>
     /// <response code="200">Successful Update.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>
@@ -83,9 +80,9 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Deletes a specific Skill.
+    /// Deletes a specific skill.
     /// </summary>
-    /// <param name="id">The Id of the Skill to delete.</param>
+    /// <param name="id">The Id of the skill to delete.</param>
     /// <response code="204">Successful Deletion.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>
