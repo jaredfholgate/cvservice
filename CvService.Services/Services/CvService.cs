@@ -77,9 +77,12 @@ namespace CvService.Services
     private void MapCvUrls(Cv cv, string rootUrl)
     {
       var (CvUrl, CompaniesUrl, SkillsUrl) = GetCvUrls(cv.Id, rootUrl);
-      cv.Url = CvUrl;
-      cv.CompaniesUrl = CompaniesUrl;
-      cv.SkillsUrl = SkillsUrl;
+      cv.Links = new List<Link>()
+      {
+        new Link { Rel = "self", Href = CvUrl },
+        new Link { Rel = "companies", Href = CompaniesUrl },
+        new Link { Rel = "skills", Href = SkillsUrl }
+      };
     }
 
     private (string CvUrl,  string CompaniesUrl, string SkillsUrl ) GetCvUrls(int id, string rootUrl)

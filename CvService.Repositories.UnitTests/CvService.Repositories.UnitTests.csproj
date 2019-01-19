@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CvService.Repositories\CvService.Repositories.csproj" />
+    <ProjectReference Include="..\CvService.Tests.Shared\CvService.Tests.Shared.csproj" />
   </ItemGroup>
 
 </Project>

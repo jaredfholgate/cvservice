@@ -60,8 +60,11 @@ namespace CvService.Services
     public static void MapCompanyUrls(Company company, int cvId, string rootUrl)
     {
       var (CvUrl, CompanyUrl) = GetCompanyUrls(company.Id, cvId, rootUrl);
-      company.CvUrl = CvUrl;
-      company.Url = CompanyUrl;
+      company.Links = new List<Link>()
+      {
+        new Link { Rel= "self", Href = CompanyUrl },
+        new Link { Rel= "cv", Href = CvUrl }
+      };
     }
 
     private static (string CvUrl,  string CompanyUrl ) GetCompanyUrls(int id, int cvId, string rootUrl)

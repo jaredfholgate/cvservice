@@ -10,8 +10,6 @@ namespace CvService.Services.Models
     public string Name { get; set; }
     public string TagLine { get; set; }
     public string Blurb { get; set; }
-    public string Url { get; set; }
-    public string CompaniesUrl { get; set; }
-    public string SkillsUrl { get; set; }
+    public List<Link> Links { get; set; }
   }
 }

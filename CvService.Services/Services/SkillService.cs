@@ -60,8 +60,11 @@ namespace CvService.Services
     public static void MapSkillUrls(Skill skill, int cvId, string rootUrl)
     {
       var (CvUrl, SkillUrl) = GetSkillUrls(skill.Id, cvId, rootUrl);
-      skill.CvUrl = CvUrl;
-      skill.Url = SkillUrl;
+      skill.Links = new List<Link>()
+      {
+        new Link { Rel = "self", Href = SkillUrl },
+        new Link { Rel = "cv", Href = CvUrl }
+      };
     }
 
     private static (string CvUrl,  string SkillUrl ) GetSkillUrls(int id, int cvId, string rootUrl)

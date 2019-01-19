@@ -1,6 +1,7 @@
 using CvService.Repositories.Contexts;
 using CvService.Repositories.Pocos;
 using CvService.Repositories.Repositories;
+using CvService.Tests.Shared;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,10 +12,6 @@ namespace CvService.Repositories.UnitTests
   [TestClass]
   public class CompanyRepositoryTests : BaseTest
   {
-    private const string CvName = "Jared Holgate";
-    private const string CvTagLine = "DevOps and Software Engineer";
-    private const string CvBlurb = "Passionate DevOps and Software Engineer with 15+ years of experience, looking to deliver scalable, valuable, high quality products. Skilled in Software Engineering, Continuous Integration, Continuous Delivery, Agile and DevOps. At Maples acted as Architect and Lead Engineers for 6 teams. Implemented best practices, such as TDD, CI and CD. Mentored and trained the teams on SOLID and Design Patterns. Introduced technologies such as Elastic Search, RabbitMQ, Angular, React, Azure and .NET Core. Matured the CD pipeline with automated environment provisioning, database provisioning, SAST, DAST, SonarQube static analysis, release notes etc.";
-
     [TestMethod]
     public void CanPersistACompany()
     {
@@ -23,7 +20,7 @@ namespace CvService.Repositories.UnitTests
       var cvRepository = new CvRepository(context);
       var companyRepository = new CompanyRepository(context);
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
       cvRepository.Add(cv);
       var cvId = cvRepository.Get()[0].Id;
       
@@ -51,7 +48,7 @@ namespace CvService.Repositories.UnitTests
       var cvRepository = new CvRepository(context);
       var companyRepository = new CompanyRepository(context);
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb }; 
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb }; 
       cvRepository.Add(cv);
       var cvId = cvRepository.Get()[0].Id;
       var company = new Company() { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds" };
@@ -82,7 +79,7 @@ namespace CvService.Repositories.UnitTests
       var cvRepository = new CvRepository(context);
       var companyRepository = new CompanyRepository(context);
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
       cvRepository.Add(cv);
       var cvId = cvRepository.Get()[0].Id;
       var company = new Company() { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds" };
@@ -105,7 +102,7 @@ namespace CvService.Repositories.UnitTests
       var cvRepository = new CvRepository(context);
       var companyRepository = new CompanyRepository(context);
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
       cvRepository.Add(cv);
       var cvId = cvRepository.Get()[0].Id;
 

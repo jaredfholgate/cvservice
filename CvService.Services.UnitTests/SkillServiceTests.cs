@@ -1,19 +1,16 @@
 using CvService.Repositories.Repositories;
 using CvService.Services.Models;
+using CvService.Tests.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CvService.Services.UnitTests
 {
   [TestClass]
   public class SkillServiceTests : BaseTest
   {
-    private const string CvName = "Jared Holgate";
-    private const string CvTagLine = "DevOps and Software Engineer";
-    private const string CvBlurb = "Passionate DevOps and Software Engineer with 15+ years of experience, looking to deliver scalable, valuable, high quality products. Skilled in Software Engineering, Continuous Integration, Continuous Delivery, Agile and DevOps. At Maples acted as Architect and Lead Engineers for 6 teams. Implemented best practices, such as TDD, CI and CD. Mentored and trained the teams on SOLID and Design Patterns. Introduced technologies such as Elastic Search, RabbitMQ, Angular, React, Azure and .NET Core. Matured the CD pipeline with automated environment provisioning, database provisioning, SAST, DAST, SonarQube static analysis, release notes etc.";
-    private const string RootUrl = "http://testurl";
-
     [TestMethod]
     public void AddAndRetieveSkill()
     {
@@ -22,15 +19,15 @@ namespace CvService.Services.UnitTests
       var cvService = new CvService(new CvRepository(context), new Mapper().GetMapper());
       var skillService = new SkillService(new SkillRepository(context), new Mapper().GetMapper());
       
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
-      var cvId = cvService.Add(cv, RootUrl).Id;
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
+      var cvId = cvService.Add(cv, Constants.RootUrl).Id;
 
       //Act
       var skill = new Skill() { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      var newSkill = skillService.AddToCv(skill, cvId, RootUrl);
+      var newSkill = skillService.AddToCv(skill, cvId, Constants.RootUrl);
 
       //Assert
-      var skills = skillService.GetForCv(cvId, RootUrl);
+      var skills = skillService.GetForCv(cvId, Constants.RootUrl);
       var result = skills[0];
 
       Assert.AreEqual(skill.Name, result.Name);
@@ -47,10 +44,10 @@ namespace CvService.Services.UnitTests
       var cvService = new CvService(new CvRepository(context), new Mapper().GetMapper());
       var skillService = new SkillService(new SkillRepository(context), new Mapper().GetMapper());
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
-      var cvId = cvService.Add(cv, RootUrl).Id;
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
+      var cvId = cvService.Add(cv, Constants.RootUrl).Id;
       var skill = new Skill() { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      var newSkill = skillService.AddToCv(skill, cvId, RootUrl);
+      var newSkill = skillService.AddToCv(skill, cvId, Constants.RootUrl);
       var skillId = newSkill.Id;
 
       //Act
@@ -58,7 +55,7 @@ namespace CvService.Services.UnitTests
       skillService.Update(skillUpdate);
 
       //Assert
-      var result = skillService.Get(skillId, RootUrl);
+      var result = skillService.Get(skillId, Constants.RootUrl);
 
       Assert.AreEqual(skillUpdate.Name, result.Name);
       Assert.AreEqual(skillUpdate.Blurb, result.Blurb);
@@ -74,26 +71,26 @@ namespace CvService.Services.UnitTests
       var cvService = new CvService(new CvRepository(context), new Mapper().GetMapper());
       var skillService = new SkillService(new SkillRepository(context), new Mapper().GetMapper());
 
-      var cv = new Cv() { Name = CvName, TagLine = CvTagLine, Blurb = CvBlurb };
-      var cvId = cvService.Add(cv, RootUrl).Id;
+      var cv = new Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
+      var cvId = cvService.Add(cv, Constants.RootUrl).Id;
 
       //Act
       var skill1 = new Skill() { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 5 };
-      skillService.AddToCv(skill1, cvId, RootUrl);
+      skillService.AddToCv(skill1, cvId, Constants.RootUrl);
       var skill2 = new Skill() { Name = "DevOps", Blurb = "DevOps Master", Order = 3 };
-      skillService.AddToCv(skill2, cvId, RootUrl);
+      skillService.AddToCv(skill2, cvId, Constants.RootUrl);
       var skill3 = new Skill() { Name = "Agile", Blurb = "Agile Expert", Order = 1 };
-      skillService.AddToCv(skill3, cvId, RootUrl);
+      skillService.AddToCv(skill3, cvId, Constants.RootUrl);
       var skill4 = new Skill() { Name = "Software Engineering", Blurb = "Since 2001", Order = 2 };
-      skillService.AddToCv(skill4, cvId, RootUrl);
+      skillService.AddToCv(skill4, cvId, Constants.RootUrl);
 
       //Assert
-      var skills = skillService.GetForCv(cvId,RootUrl);
+      var skills = skillService.GetForCv(cvId, Constants.RootUrl);
       
       foreach(var skill in skills)
       {
-        Assert.AreEqual($"{RootUrl}/cv/{skill.CvId}", skill.CvUrl);
-        Assert.AreEqual($"{RootUrl}/skill/{skill.Id}", skill.Url);
+        Assert.AreEqual($"{Constants.RootUrl}/cv/{skill.CvId}", skill.Links.Single(o => o.Rel == "cv").Href);
+        Assert.AreEqual($"{Constants.RootUrl}/skill/{skill.Id}", skill.Links.Single(o => o.Rel == "self").Href);
       }
     }
   }
