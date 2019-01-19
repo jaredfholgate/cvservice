@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 
@@ -32,11 +33,13 @@ namespace CvService.Api.IntnTests
       dynamic result = JObject.Parse(postResponse.Content.ReadAsStringAsync().Result);
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.Created, postResponse.StatusCode);
       Assert.AreEqual(Constants.CvName, result.name.ToString());
       Assert.AreEqual(Constants.CvTagLine, result.tagLine.ToString());
       Assert.AreEqual(Constants.CvBlurb, result.blurb.ToString());
 
       var getResponse = client.GetAsync("/cv").Result;
+      Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
       result = JArray.Parse(getResponse.Content.ReadAsStringAsync().Result)[0];
 
       Assert.AreEqual(Constants.CvName, result.name.ToString());
@@ -59,7 +62,9 @@ namespace CvService.Api.IntnTests
       var putResponse = client.PutAsync($"/cv/{cvId}", new StringContent(JsonConvert.SerializeObject(cvUpdate),Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
       var getResponse = client.GetAsync($"/cv/{cvId}").Result;
+      Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
       dynamic result = JObject.Parse(getResponse.Content.ReadAsStringAsync().Result);
       Assert.AreEqual(Constants.CvNameUpdate, result.name.ToString());
       Assert.AreEqual(Constants.CvTagLineUpdate, result.tagLine.ToString());
@@ -77,9 +82,10 @@ namespace CvService.Api.IntnTests
       var cvId = postResult.id;
 
       //Act
-      var putResponse = client.DeleteAsync($"/cv/{cvId}").Result;
+      var deleteResponse = client.DeleteAsync($"/cv/{cvId}").Result;
 
       //Assert
+      Assert.AreEqual(HttpStatusCode.NoContent, deleteResponse.StatusCode);
       var getResponse = client.GetAsync($"/cv").Result;
       var result = getResponse.Content.ReadAsStringAsync().Result;
       Assert.AreEqual("[]", result);
@@ -103,8 +109,11 @@ namespace CvService.Api.IntnTests
         var newSkill = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill),Constants.Encoding, Constants.MediaType)).Result;
       }
 
-      //Assert
+      //Act
       var getResponse = client.GetAsync($"/cv/{cvId}/full").Result;
+
+      //Assert
+      Assert.AreEqual(HttpStatusCode.OK, getResponse.StatusCode);
       var getResult = getResponse.Content.ReadAsStringAsync().Result;
       dynamic result = JObject.Parse(getResponse.Content.ReadAsStringAsync().Result);
 

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.IO;
 using System.Reflection;
 
 namespace CvService.Api
@@ -54,10 +55,13 @@ namespace CvService.Api
       }
 
       var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+      var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+      var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info { Title = "Cv Service", Version = version });
+        c.IncludeXmlComments(xmlPath);
       });
     }
 

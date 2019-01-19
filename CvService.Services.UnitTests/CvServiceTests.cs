@@ -14,7 +14,7 @@ namespace CvService.Services.UnitTests
     {
       //Arrange
       var cvService = new CvService(new CvRepository(GetSqlLiteContext()), new Mapper().GetMapper());
-      var cv = new Models.Cv() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
+      var cv = new Models.CvData() { Name = Constants.CvName, TagLine = Constants.CvTagLine, Blurb = Constants.CvBlurb };
 
       //Act
       cvService.Add(cv, Constants.RootUrl);
@@ -37,8 +37,8 @@ namespace CvService.Services.UnitTests
       var cvId = cvService.Get(Constants.RootUrl)[0].Id;
 
       //Act
-      var cvUpdate = new Models.Cv() { Id = cvId, Name = Constants.CvNameUpdate, TagLine = Constants.CvTagLineUpdate, Blurb = Constants.CvBlurbUpdate };
-      cvService.Update(cvUpdate);
+      var cvUpdate = new Models.CvData() { Name = Constants.CvNameUpdate, TagLine = Constants.CvTagLineUpdate, Blurb = Constants.CvBlurbUpdate };
+      cvService.Update(cvId, cvUpdate);
 
       //Assert
       var result = cvService.Get(cvId, Constants.RootUrl);

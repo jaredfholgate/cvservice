@@ -17,7 +17,7 @@ namespace CvService.Services
       _mapper = mapper;
     }
 
-    public Cv Add(Cv cv, string rootUrl)
+    public Cv Add(CvData cv, string rootUrl)
     {
       var cvPoco = _mapper.Map<Repositories.Pocos.Cv>(cv);
       var newCv =_cvRepository.Add(cvPoco);
@@ -64,13 +64,10 @@ namespace CvService.Services
       _cvRepository.Delete(id);
     }
 
-    public void Update(Cv cv)
+    public void Update(int id, CvData cv)
     {
-      if (cv.Id == 0)
-      {
-        throw new Exception("The CV must have an Id.");
-      }
       var mappedCV = _mapper.Map<Repositories.Pocos.Cv>(cv);
+      mappedCV.Id = id;
       _cvRepository.Update(mappedCV);
     }
 

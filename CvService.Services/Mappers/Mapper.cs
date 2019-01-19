@@ -11,6 +11,7 @@ namespace CvService.Services
     {
       var config = new MapperConfiguration(cfg => {
         cfg.CreateMap<Models.Cv, Repositories.Pocos.Cv>();
+        cfg.CreateMap<Models.CvData, Repositories.Pocos.Cv>();
         cfg.CreateMap<Repositories.Pocos.Cv, Models.Cv>();
         cfg.CreateMap<Repositories.Pocos.Cv, Models.FullCv>();
         cfg.CreateMap<Models.Company, Repositories.Pocos.Company>();
