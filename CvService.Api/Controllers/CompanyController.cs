@@ -51,7 +51,7 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Add a company to a Cv
+    /// Add a company to a Cv.
     /// </summary>
     /// <param name="cvId">The Id of the CV to add the company to.</param>
     /// <param name="company">The company details.</param>

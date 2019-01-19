@@ -50,7 +50,7 @@ namespace CvService.Api.Controllers
     }
 
     /// <summary>
-    /// Add a skill to a Cv
+    /// Add a skill to a Cv.
     /// </summary>
     /// <param name="cvId">The Id of the CV to add the skill to.</param>
     /// <param name="skill">The skill details.</param>
@@ -60,7 +60,7 @@ namespace CvService.Api.Controllers
     [HttpPost("cv/{cvId}/skills")]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
-    public ActionResult<Skill> Post(int cvId, [FromBody] Skill skill)
+    public ActionResult<Skill> Post(int cvId, [FromBody] SkillData skill)
     {
       return StatusCode(StatusCodes.Status201Created, _skillService.AddToCv(skill, cvId, RootUrl));
     }
@@ -76,7 +76,7 @@ namespace CvService.Api.Controllers
     [HttpPut("skill/{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public IActionResult Put(int id, [FromBody] Skill skill)
+    public IActionResult Put(int id, [FromBody] SkillData skill)
     {
       _skillService.Update(id, skill);
       return StatusCode(StatusCodes.Status200OK);
