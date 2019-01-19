@@ -54,8 +54,8 @@ namespace CvService.Services.UnitTests
       var companyId = newCompany.Id;
 
       //Act
-      var companyUpdate = new Company() { Id = companyId, Start = DateTime.Parse("2000-08-02"), End = DateTime.Parse("2002-05-02"), CompanyName = "Carlsberg US", Role = "Quality Assurance Monkey", Location = "Montreal" };
-      companyService.Update(companyUpdate);
+      var companyUpdate = new Company() {  Start = DateTime.Parse("2000-08-02"), End = DateTime.Parse("2002-05-02"), CompanyName = "Carlsberg US", Role = "Quality Assurance Monkey", Location = "Montreal" };
+      companyService.Update(companyId, companyUpdate);
 
       //Assert
       var result = companyService.Get(companyId, Constants.RootUrl);

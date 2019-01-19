@@ -5,10 +5,10 @@ namespace CvService.Services
 {
   public interface ICompanyService
   {
-    Company AddToCv(Company company, int cvId, string rootUrl);
+    Company AddToCv(CompanyData company, int cvId, string rootUrl);
     void Delete(int id);
     Company Get(int id, string rootUrl);
     List<Company> GetForCv(int cvId, string rootUrl);
-    void Update(Company company);
+    void Update(int id, CompanyData company);
   }
 }

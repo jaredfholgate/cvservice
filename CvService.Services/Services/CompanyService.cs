@@ -17,7 +17,7 @@ namespace CvService.Services
       _mapper = mapper;
     }
 
-    public Company AddToCv(Company company, int cvId, string rootUrl)
+    public Company AddToCv(CompanyData company, int cvId, string rootUrl)
     {
       var companyPoco = _mapper.Map<Repositories.Pocos.Company>(company);
       var newCompany =_companyRepository.AddToCv(companyPoco, cvId);
@@ -47,13 +47,10 @@ namespace CvService.Services
       _companyRepository.Delete(id);
     }
 
-    public void Update(Company company)
+    public void Update(int Id, CompanyData company)
     {
-      if (company.Id == 0)
-      {
-        throw new Exception("The Company must have an Id");
-      }
       var mappedCV = _mapper.Map<Repositories.Pocos.Company>(company);
+      mappedCV.Id = Id;
       _companyRepository.Update(mappedCV);
     }
 

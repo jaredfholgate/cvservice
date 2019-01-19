@@ -70,7 +70,7 @@ namespace CvService.Api.Controllers
     /// </summary>
     /// <param name="cv">The CV data to be saved.</param>
     /// <response code="201">Successfully Added the Cv and returns the new CV.</response>
-    /// <response code="400">Bad request</response>
+    /// <response code="400">Bad request.</response>
     /// <returns>A status code and the new CV with it's Id</returns>
     [HttpPost]
     [ProducesResponseType(201)]
@@ -85,8 +85,8 @@ namespace CvService.Api.Controllers
     /// </summary>
     /// <param name="id">The Id of the CV to be updated.</param>
     /// <param name="cv">The CV data to be updated.</param>
-    /// <response code="200">Successful Update</response>
-    /// <response code="400">Bad request</response>
+    /// <response code="200">Successful Update.</response>
+    /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
@@ -100,7 +100,7 @@ namespace CvService.Api.Controllers
     /// <summary>
     /// Delete a specific CV.
     /// </summary>
-    /// <param name="id">The Id of the CV to be deleted.</param>
+    /// <param name="id">The Id of the CV to delete.</param>
     /// <response code="204">Successful Deletion.</response>
     /// <response code="400">Bad request.</response>
     /// <returns>A status code.</returns>
