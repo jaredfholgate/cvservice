@@ -25,11 +25,11 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
+      var cvId = CreateCvAndGetId(client);
 
       //Act
       var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
-      var postResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
+      var postResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
       Assert.AreEqual(HttpStatusCode.Created, postResponse.StatusCode);
@@ -44,7 +44,7 @@ namespace CvService.Api.IntnTests
       Assert.AreEqual(company.Role, (string)result.role);
       Assert.AreEqual(company.Location, (string)result.location);
       Assert.AreEqual(company.Blurb, (string)result.blurb);
-      Assert.AreEqual((int)cvId, (int)result.cvId);
+      Assert.AreEqual(cvId, (int)result.cvId);
     }
 
     [TestMethod]
@@ -52,15 +52,12 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
-      var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
-      var postCompanyResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
-      dynamic newCompany = JObject.Parse(postCompanyResponse.Content.ReadAsStringAsync().Result);
-      var companyId = newCompany.id;
+      var cvId = CreateCvAndGetId(client);
+      var companyId = CreateCompanyAndGetId(client, cvId);
 
       //Act
       var companyUpdate = new { Start = DateTime.Parse("2000-08-02"), End = DateTime.Parse("2002-05-02"), CompanyName = "Carlsberg US", Role = "Quality Assurance Monkey", Location = "Montreal", Blurb = "Nah, Nah, Nah" };
-      var putResponse = client.PutAsync($"/company/{companyId}", new StringContent(JsonConvert.SerializeObject(companyUpdate), Encoding.UTF8, "application/json")).Result;
+      var putResponse = client.PutAsync($"/company/{companyId}", new StringContent(JsonConvert.SerializeObject(companyUpdate), Constants.Encoding, Constants.MediaTyp)).Result;
 
       //Assert
       Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
@@ -74,7 +71,7 @@ namespace CvService.Api.IntnTests
       Assert.AreEqual(companyUpdate.Role, (string)result.role);
       Assert.AreEqual(companyUpdate.Location, (string)result.location);
       Assert.AreEqual(companyUpdate.Blurb, (string)result.blurb);
-      Assert.AreEqual((int)cvId, (int)result.cvId);
+      Assert.AreEqual(cvId, (int)result.cvId);
     }
 
     [TestMethod]
@@ -82,11 +79,8 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
-      var company = new { Start = DateTime.Parse("2000-08-01"), End = DateTime.Parse("2002-05-01"), CompanyName = "Carlsberg UK", Role = "Quality Assurance Technician", Location = "Leeds", Blurb = "Blah, Blah, Blah" };
-      var postCompanyResponse = client.PostAsync($"/cv/{cvId}/companies", new StringContent(JsonConvert.SerializeObject(company), Encoding.UTF8, "application/json")).Result;
-      dynamic newCompany = JObject.Parse(postCompanyResponse.Content.ReadAsStringAsync().Result);
-      var companyId = newCompany.id;
+      var cvId = CreateCvAndGetId(client);
+      var companyId = CreateCompanyAndGetId(client, cvId);
 
       //Act
       var deleteResponse = client.DeleteAsync($"/company/{companyId}").Result;

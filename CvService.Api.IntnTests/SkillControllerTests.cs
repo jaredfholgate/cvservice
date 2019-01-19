@@ -25,7 +25,7 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
+      var cvId = CreateCvAndGetId(client);
 
       //Act
       var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
@@ -41,7 +41,7 @@ namespace CvService.Api.IntnTests
       Assert.AreEqual(skill.Name, (string)result.name);
       Assert.AreEqual(skill.Blurb, (string)result.blurb);
       Assert.AreEqual(skill.Order, (int)result.order);
-      Assert.AreEqual((int)cvId, (int)result.cvId);
+      Assert.AreEqual(cvId, (int)result.cvId);
     }
 
     [TestMethod]
@@ -49,11 +49,8 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
-      var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      var postSkillResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
-      dynamic newSkill = JObject.Parse(postSkillResponse.Content.ReadAsStringAsync().Result);
-      var skillId = newSkill.id;
+      var cvId = CreateCvAndGetId(client);
+      var skillId = CreateSkillAndGetId(client, cvId);
 
       //Act
       var skillUpdate = new { Name = "C#", Blurb = "Been using it since 2001.", Order = 24 };
@@ -68,7 +65,7 @@ namespace CvService.Api.IntnTests
       Assert.AreEqual(skillUpdate.Name, (string)result.name);
       Assert.AreEqual(skillUpdate.Blurb, (string)result.blurb);
       Assert.AreEqual(skillUpdate.Order, (int)result.order);
-      Assert.AreEqual((int)cvId, (int)result.cvId);
+      Assert.AreEqual(cvId, (int)result.cvId);
     }
 
     [TestMethod]
@@ -76,11 +73,8 @@ namespace CvService.Api.IntnTests
     {
       //Arrange
       var client = _factory.CreateClient();
-      int cvId = CreateCvAndGetId(client);
-      var skill = new { Name = "Continuous Delivery", Blurb = "Awesome at CI and CD", Order = 12 };
-      var postSkillResponse = client.PostAsync($"/cv/{cvId}/skills", new StringContent(JsonConvert.SerializeObject(skill), Constants.Encoding, Constants.MediaType)).Result;
-      dynamic newSkill = JObject.Parse(postSkillResponse.Content.ReadAsStringAsync().Result);
-      var skillId = newSkill.id;
+      var cvId = CreateCvAndGetId(client);
+      var skillId = CreateSkillAndGetId(client, cvId);
 
       //Act
       var deleteResponse = client.DeleteAsync($"/skill/{skillId}").Result;
