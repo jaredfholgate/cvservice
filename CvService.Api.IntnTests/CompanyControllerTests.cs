@@ -57,7 +57,7 @@ namespace CvService.Api.IntnTests
 
       //Act
       var companyUpdate = new { Start = DateTime.Parse("2000-08-02"), End = DateTime.Parse("2002-05-02"), CompanyName = "Carlsberg US", Role = "Quality Assurance Monkey", Location = "Montreal", Blurb = "Nah, Nah, Nah" };
-      var putResponse = client.PutAsync($"/company/{companyId}", new StringContent(JsonConvert.SerializeObject(companyUpdate), Constants.Encoding, Constants.MediaTyp)).Result;
+      var putResponse = client.PutAsync($"/company/{companyId}", new StringContent(JsonConvert.SerializeObject(companyUpdate), Constants.Encoding, Constants.MediaType)).Result;
 
       //Assert
       Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
