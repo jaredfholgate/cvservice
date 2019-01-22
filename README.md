@@ -134,3 +134,4 @@ The following items would be worked on if I had more time;
 21. Implement versioning in code or via gateway.
 22. Proper exception handling and useful errror messages.
 23. Extend the Ci / CD pipeline for static analysis, coverage and security teating.
+24. Consider refactoring to use async methods to improve performance and scalability.
