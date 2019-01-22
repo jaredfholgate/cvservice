@@ -131,3 +131,6 @@ The following items would be worked on if I had more time;
 18. Add users and roles.
 19. Enable updating / adding of multiple items in one put / post / delete.
 20. Improve the swagger documentation by customising it.
+21. Implement versioning in code or via gateway.
+22. Proper exception handling and useful errror messages.
+23. Extend the Ci / CD pipeline for static analysis, coverage and security teating.
